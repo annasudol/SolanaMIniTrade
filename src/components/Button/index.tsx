@@ -16,8 +16,8 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={clsx(
-        `flex items-center justify-center text-xs font-semibold leading-5 h-12 px-2 rounded-lg
-        disabled:cursor-not-allowed disabled:opacity-50 transition-colors ease-out group uppercase min-w-[185px] lg:min-w-button-md bg-yellow-600 hover:bg-yellow-500 text-main-brown`,
+        `flex items-center justify-center text-xs font-semibold leading-5 h-12 px-12 rounded-lg
+        disabled:cursor-not-allowed disabled:opacity-50 transition-colors ease-out group uppercase bg-main-yellow hover:bg-yellow-500 text-main-brown`,
         className
       )}
       disabled={disabled || loading}

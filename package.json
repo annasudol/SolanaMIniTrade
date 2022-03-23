@@ -15,8 +15,10 @@
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.0",
     "@mui/styled-engine-sc": "^5.1.0",
+    "@solana/web3.js": "^1.36.0",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "classnames": "^2.3.1",
+    "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "10.2.0",
     "next-compose-plugins": "^2.2.1",
@@ -24,10 +26,12 @@
     "prettier": "^2.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hot-toast": "^2.2.0",
     "react-responsive": "^9.0.0-beta.5",
     "sass": "^1.32.5",
     "styled-components": "^5.3.3",
-    "styled-jsx-plugin-postcss": "^4.0.1"
+    "styled-jsx-plugin-postcss": "^4.0.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.0.2",

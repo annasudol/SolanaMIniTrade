@@ -1,2 +1,2 @@
 export { AppConfig } from "./AppConfig";
-export { separator } from "./separator";
+export { validateSolAddress } from "./validateSolAddress";

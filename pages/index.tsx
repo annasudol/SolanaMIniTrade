@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Main } from '@templates';
-
+import { TransactionForm } from "@components"
 const Home = (): React.ReactElement => {
   return (
     <Main>
-      <p>trade</p>
+      <TransactionForm />
     </Main>
   );
 };
