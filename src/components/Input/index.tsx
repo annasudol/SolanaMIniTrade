@@ -1,19 +1,21 @@
 import clsx from "clsx";
 import { InputHTMLAttributes } from "react";
-
+import { useState } from "react"
 import { FieldAttributes, FieldAttributesProps } from "../FieldAttributes";
 
 interface BaseProps {
   fieldAttributesProps?: Omit<FieldAttributesProps, "onLabelClick">;
 }
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement>, BaseProps {}
+interface InputProps extends InputHTMLAttributes<HTMLInputElement>, BaseProps {
+  children?: React.ReactNode
+}
 
-export type TextFieldProps = InputProps;
 
-export const Input: React.FC<TextFieldProps> = ({
+export const Input: React.FC<InputProps> = ({
   className,
   fieldAttributesProps,
+  children,
   ...props
 }) => {
   const hasError = !!fieldAttributesProps?.error;
@@ -22,14 +24,17 @@ export const Input: React.FC<TextFieldProps> = ({
     {
       "cursor-not-allowed": props.disabled,
       "border-black-200 focus:border-yellow-700": !hasError,
-      "border-red-400 focus:border-red-400 text-red-400 dark:text-red-400": hasError
+      "border-red-400 focus:border-red-400 text-red-400": hasError
     },
     className
   );
 
   return (
-    <FieldAttributes {...fieldAttributesProps}>
-     <input className={classes} {...(props as InputProps)} />
-    </FieldAttributes>
+    <div className="relative">
+      <FieldAttributes {...fieldAttributesProps}>
+      <input className={classes} {...(props as InputProps)} />
+      </FieldAttributes>
+      {children}
+    </div>
   );
 };

@@ -62,3 +62,17 @@ body {
   padding: 16px 24px;
   min-width: 220px;
 }
+
+button:disabled:hover {
+  background-color: #FCC419;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield !important;
+}
