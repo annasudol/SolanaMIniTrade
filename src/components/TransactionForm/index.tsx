@@ -5,7 +5,6 @@ import { useForm } from "./Validation.hooks";
 export const TransactionForm: React.FC = () => {
   const { formik, errors } = useForm();
     const buttonIsdisabled = !errors.amount.error || !errors.address.error;
-    console.log(buttonIsdisabled, 'buttonIsdisabled')
   return (
    <div className="sm:flex justify-center pt-12">
     <form className="w-full sm:w-1/2" onSubmit={formik.handleSubmit}>
