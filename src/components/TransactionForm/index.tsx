@@ -4,7 +4,7 @@ import { useForm } from "./Validation.hooks";
 
 export const TransactionForm: React.FC = () => {
   const { formik, errors } = useForm();
-
+    console.log(errors, 'errors')
   return (
     <form className="w-full sm:w-1/2" onSubmit={formik.handleSubmit}>
       <Input
