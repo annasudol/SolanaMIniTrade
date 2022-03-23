@@ -8,11 +8,13 @@ export const useForm = () => {
 
   const validationSchema = yup.object({
     address: yup.string().required("Address is required"),
+    amount: yup.number().min(0.02).required("Amount is required"),
   });
 
   const formik = useFormik({
     initialValues: {
-      address: ""
+      address: "",
+      amount: ""
     },
     validationSchema,
     onSubmit: () => {
@@ -25,6 +27,9 @@ export const useForm = () => {
     () => ({
       address: {
         error: formik.touched.address && formik.errors.address || !validateSolAddress(formik.values.address) && "Not valid solana address",
+      },
+      amount: {
+        error: formik.touched.amount && formik.errors.amount
       }
     }),
     [formik.touched, formik.errors]
