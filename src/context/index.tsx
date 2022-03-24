@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { createContext, useState, ReactNode, useEffect } from 'react';
+type Props = {
+  children: ReactNode;
+};
+
 import { PublicKey, Transaction } from "@solana/web3.js";
 
 
@@ -30,7 +34,11 @@ interface PhantomProvider {
   request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
 }
 
-export function WalletButton() {
+export const WalletContext = createContext<{provider?: PhantomProvider ,  walletKey?: PhantomProvider, connectWallet?: any, disconnectWallet?: any }>({ provider: undefined,  walletKey: undefined });
+
+
+export const WalletProvider: React.FunctionComponent<Props> = ({ children }) => {
+
   const [provider, setProvider] = useState<PhantomProvider | undefined>(
     undefined
   );
@@ -87,50 +95,9 @@ export function WalletButton() {
     if (provider) setProvider(provider);
     else setProvider(undefined);
   }, []);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        {provider && !walletKey && (
-          <button
-            style={{
-              fontSize: "16px",
-              padding: "15px",
-              fontWeight: "bold",
-              borderRadius: "5px",
-            }}
-            onClick={connectWallet}
-          >
-            Connect to Phantom Wallet
-          </button>
-        )}
-
-        {provider && walletKey && (
-          <div>
-            <p>Connected account {walletKey}</p>
-
-            <button
-              style={{
-                fontSize: "16px",
-                padding: "15px",
-                fontWeight: "bold",
-                borderRadius: "5px",
-                margin: "15px auto",
-              }}
-              onClick={disconnectWallet}
-            >
-              Disconnect
-            </button>
-          </div>
-        )}
-
-        {!provider && (
-          <p>
-            No provider found. Install{" "}
-            <a href="https://phantom.app/">Phantom Browser extension</a>
-          </p>
-        )}
-      </header>
-    </div>
+    <WalletContext.Provider value={{ provider, walletKey, disconnectWallet, connectWallet }}>
+      {children}
+    </WalletContext.Provider>
   );
-}
+};

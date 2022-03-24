@@ -27,6 +27,8 @@
             "@utils": ["src/utils/"],
             "@templates/*": ["src/templates/*"],
             "@templates": ["src/templates/"],
+            "@context/*": ["src/context/*"],
+            "@context": ["src/context/"],
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./src/**/*"],
