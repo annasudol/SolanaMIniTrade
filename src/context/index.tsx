@@ -4,6 +4,7 @@ type Props = {
 };
 
 import { PublicKey, Transaction } from "@solana/web3.js";
+import * as solanaWeb3 from '@solana/web3.js';
 
 
 type DisplayEncoding = "utf8" | "hex";
@@ -34,7 +35,15 @@ interface PhantomProvider {
   request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
 }
 
-export const WalletContext = createContext<{provider?: PhantomProvider ,  walletKey?: PhantomProvider, connectWallet?: any, disconnectWallet?: any }>({ provider: undefined,  walletKey: undefined });
+interface WalletContextValues {
+  provider?: PhantomProvider;
+  walletKey?: PhantomProvider;
+  connectWallet?: any;
+  disconnectWallet?: any;
+  balance?: number;
+}
+
+export const WalletContext = createContext<WalletContextValues>({ provider: undefined,  walletKey: undefined });
 
 
 export const WalletProvider: React.FunctionComponent<Props> = ({ children }) => {
@@ -44,6 +53,12 @@ export const WalletProvider: React.FunctionComponent<Props> = ({ children }) => 
   );
   const [walletKey, setWalletKey] = useState<PhantomProvider | undefined>(
     undefined
+  );
+  const [balance, setBalance] = useState<number>(0);
+
+  const connection = new solanaWeb3.Connection(
+    solanaWeb3.clusterApiUrl('testnet'),
+    'confirmed',
   );
 
   /**
@@ -63,12 +78,13 @@ export const WalletProvider: React.FunctionComponent<Props> = ({ children }) => 
   const connectWallet = async () => {
     // @ts-ignore
     const { solana } = window;
-
     if (solana) {
       try {
         const response = await solana.connect();
         console.log("wallet account ", response.publicKey.toString());
         setWalletKey(response.publicKey.toString());
+        const balance =await connection.getBalance(response.publicKey);
+        setBalance(balance);
       } catch (err) {
         // { code: 4001, message: 'User rejected the request.' }
       }
@@ -96,7 +112,7 @@ export const WalletProvider: React.FunctionComponent<Props> = ({ children }) => 
     else setProvider(undefined);
   }, []);
   return (
-    <WalletContext.Provider value={{ provider, walletKey, disconnectWallet, connectWallet }}>
+    <WalletContext.Provider value={{ provider, walletKey, disconnectWallet, connectWallet, balance }}>
       {children}
     </WalletContext.Provider>
   );
