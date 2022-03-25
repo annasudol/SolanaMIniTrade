@@ -8,7 +8,8 @@ interface BaseProps {
 }
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement>, BaseProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
+  handleChange?: any;
 }
 
 
@@ -16,6 +17,7 @@ export const Input: React.FC<InputProps> = ({
   className,
   fieldAttributesProps,
   children,
+  handleChange,
   ...props
 }) => {
   const hasError = !!fieldAttributesProps?.error;
@@ -32,7 +34,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div className="relative">
       <FieldAttributes {...fieldAttributesProps}>
-      <input className={classes} {...(props as InputProps)} />
+        {handleChange ? <input {...props} onChange={handleChange} /> :  <input className={classes} {...(props as InputProps)} />}
       </FieldAttributes>
       {children}
     </div>
