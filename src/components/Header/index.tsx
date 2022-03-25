@@ -1,4 +1,6 @@
-import { WalletContext } from "@context"
+import { WalletContext } from "@context";
+import { Button } from "@components";
+import { trimText } from "@utils"
 export const Header = () => {
 
   return (
@@ -8,36 +10,20 @@ export const Header = () => {
         return(
           <header className='h-22 w-full'>
             <h1 className="text-5xl uppercase text-center text-gray-900">Send Sol</h1>
-            {provider && !walletKey && (
-              <button
-                style={{
-                  fontSize: "16px",
-                  padding: "15px",
-                  fontWeight: "bold",
-                  borderRadius: "5px",
-                }}
-                onClick={connectWallet}
-              >
+           <div className="flex justify-center">
+           {provider && !walletKey && (
+              <Button onClick={connectWallet}>
                 Connect to Phantom Wallet
-              </button>
+              </Button>
             )}
 
             {provider && walletKey && (
-              <div>
-                <p>Connected account {walletKey}</p>
-                <button
-                  style={{
-                    fontSize: "16px",
-                    padding: "15px",
-                    fontWeight: "bold",
-                    borderRadius: "5px",
-                    margin: "15px auto",
-                  }}
-                  onClick={disconnectWallet}
-                >
-                  Disconnect
-                </button>
-              </div>
+              <>
+                {/* <p>Connected account {walletKey}</p> */}
+                <Button onClick={disconnectWallet}>
+                  {trimText(walletKey as unknown as string)}
+                </Button>
+              </>
             )}
             {!provider && (
               <p>
@@ -45,6 +31,7 @@ export const Header = () => {
                 <a href="https://phantom.app/">Phantom Browser extension</a>
               </p>
             )}
+           </div>
           </header>
         )
       }}
