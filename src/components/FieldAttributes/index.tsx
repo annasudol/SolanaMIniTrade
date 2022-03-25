@@ -8,6 +8,7 @@ export interface FieldAttributesProps {
   className?: string;
   defaultClassName?: string;
   onLabelClick?: () => void;
+  disabled?: boolean
 }
 
 export const FieldAttributes: React.FC<FieldAttributesProps> = ({
@@ -16,9 +17,16 @@ export const FieldAttributes: React.FC<FieldAttributesProps> = ({
   className,
   defaultClassName = "w-full mb-5",
   children,
-  onLabelClick
+  onLabelClick,
+  disabled,
 }) => {
   const [id, setId] = useState<string | undefined>(undefined);
+  const classes = clsx(
+    "mb-1 text-sm font-medium text-gray-600 select-none pl-2",
+    {
+      "opacity-75": disabled,
+    },
+  );
 
   useEffect(() => {
     setId(uniqueId("id-"));
@@ -29,7 +37,7 @@ export const FieldAttributes: React.FC<FieldAttributesProps> = ({
       {label && (
         <label
           aria-hidden="true"
-          className="mb-1 text-sm font-medium text-gray-600 select-none pl-2"
+          className={classes}
           htmlFor={id}
           onClick={() => onLabelClick?.()}
         >

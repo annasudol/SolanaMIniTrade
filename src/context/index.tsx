@@ -54,7 +54,7 @@ export const WalletProvider: React.FunctionComponent<Props> = ({ children }) => 
   const [walletKey, setWalletKey] = useState<PhantomProvider | undefined>(
     undefined
   );
-  const [balance, setBalance] = useState<number>(0);
+  const [balance, setBalance] = useState<number>();
 
   const connection = new solanaWeb3.Connection(
     solanaWeb3.clusterApiUrl('testnet'),
