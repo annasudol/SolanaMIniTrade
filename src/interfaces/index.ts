@@ -1,5 +1,5 @@
 export enum NetworkTypes {
-  mainet = 'mainet',
+  mainet = 'mainnet-beta',
   devnet = 'devnet',
   testnet = 'testnet'
 }

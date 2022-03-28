@@ -23,7 +23,7 @@ export const TransactionForm: React.FC = () => {
                 placeholder="Min 0.02"
               >
                   <div className="absolute top-9 right-4">
-                   {balance !== undefined && <button onClick={handleClick} className="text-main-lightBrown mr-2">max</button>}
+                   {balance !== undefined && <button onClick={handleClick} className="text-main-lightBrown mr-2" type="submit">max</button>}
                     <span className="uppercase text-gray-7 border-l border-gray-7 px-1">SOL</span>
                   </div>
                   </Input>
