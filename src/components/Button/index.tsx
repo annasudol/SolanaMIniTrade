@@ -22,7 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled || loading}
       {...props}
     >
-      {children}
+      {loading ? 'processing...' : children}
     </button>
   );
 };
