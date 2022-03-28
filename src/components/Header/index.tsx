@@ -1,7 +1,7 @@
 import { WalletContext } from "@context";
-import { Button, SelectInput } from "@components";
+import { Button } from "@components";
 import { trimText } from "@utils"
-import { NetworkTypes } from "@interfaces";
+// import { NetworkTypes } from "@interfaces";
 export const Header = () => {
 
   return (
@@ -29,7 +29,7 @@ export const Header = () => {
                   <a href="https://phantom.app/">Phantom Browser extension</a>
                 </p>
               )}
-              <SelectInput id="Network" options={[{ label: NetworkTypes.devnet, value: NetworkTypes.devnet }, { label: "mainet", value: NetworkTypes.mainet }, { label: NetworkTypes.testnet, value: NetworkTypes.testnet } ]} selectedValue={network} onChangeSelect={(network) => setNetwork(network)} />
+              {/* <SelectInput id="Network" options={[{ label: NetworkTypes.devnet, value: NetworkTypes.devnet }, { label: "mainet", value: NetworkTypes.mainet }, { label: NetworkTypes.testnet, value: NetworkTypes.testnet } ]} selectedValue={network} onChangeSelect={(network) => setNetwork(network)} /> */}
               </div>
            </div>
           </header>
