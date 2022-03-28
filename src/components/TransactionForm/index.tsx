@@ -4,13 +4,13 @@ import { WalletContext } from "@context";
 
 export const TransactionForm: React.FC = () => {
   const { formik, errors } = useForm();
-  
-  const handleClick= async()=> formik.setFieldValue('amount', 2, false);
+
   return (
     <WalletContext.Consumer>
       {context=> {
         const { walletKey, balance } = context;
         const buttonIsdisabled = !errors.amount.error || !errors.address.error || !walletKey;
+        const handleClick= async()=> formik.setFieldValue('amount', balance, false);
         return(
           <div className="sm:flex justify-center pt-12">
             <form className="w-full sm:w-1/2" onSubmit={formik.handleSubmit}>
@@ -18,13 +18,12 @@ export const TransactionForm: React.FC = () => {
                 type="number"
                 step={0.1}
                 disabled={!walletKey}
-                {...formik.getFieldProps("amount")}
-              
+                {...formik.getFieldProps("amount")}  
                 fieldAttributesProps={{ error: walletKey && errors.amount.error, label: "Amount" }}
                 placeholder="Min 0.02"
               >
                   <div className="absolute top-9 right-4">
-                    <button onClick={handleClick} className="text-main-lightBrown mr-2">{balance ? 'max' : ''}</button>
+                   {balance !== undefined && <button onClick={handleClick} className="text-main-lightBrown mr-2">max</button>}
                     <span className="uppercase text-gray-7 border-l border-gray-7 px-1">SOL</span>
                   </div>
                   </Input>
