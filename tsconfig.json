@@ -1,36 +1,44 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "baseUrl": ".",
-        "paths": {
-            "@components/*": ["src/components/*"],
-            "@components": ["src/components/"],
-            "@public/*": ["public/*"],
-            "@public": ["public"],
-            "@styles/*": ["src/styles/*"],
-            "@styles": ["src/styles"],
-            "@interfaces/*": ["src/interfaces/*"],
-            "@interfaces": ["src/interfaces/"],
-            "@utils/*": ["src/utils/*"],
-            "@utils": ["src/utils/"],
-            "@templates/*": ["src/templates/*"],
-            "@templates": ["src/templates/"],
-            "@context/*": ["src/context/*"],
-            "@context": ["src/context/"],
-        }
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"],
+      "@components/*": ["components/*"],
+      "@components": ["components/"],
+      "@styles/*": ["styles/*"],
+      "@styles": ["styles"],
+      "@context/*": ["context/*"],
+      "@context": ["context"],
+      "@hooks/*": ["hooks/*"],
+      "@hooks": ["hooks"],
+      "@stores/*": ["stores/*"],
+      "@stores": ["stores"],
+      "@utils/*": ["utils/*"],
+      "@utils": ["utils"]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./src/**/*"],
-    "exclude": ["node_modules"]
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "strictNullChecks": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".next"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

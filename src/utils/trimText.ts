@@ -1,1 +1,0 @@
-export const trimText=(text: string): string =>  text.length > 10 ? text.substring(0, 4) + "..." + text.substring(text.length-4, text.length) : text;
