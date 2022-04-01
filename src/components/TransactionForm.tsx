@@ -15,10 +15,8 @@ export const TransactionForm: React.FC = () => {
     setLoading(true);
   };
 
-  const balance = useMemo(()=>  getUserSOLBalance(publicKey, connection), [publicKey])
-  const handleAddMaxValue=()=> {
-
-  }
+  const balance = useUserSOLBalanceStore((s) => s.balance);
+  const handleAddMaxValue= async()=> await formik.setFieldValue('amount', balance, false);
   return (
     <div className="sm:flex justify-center pt-12">
       <form className="w-full sm:w-1/2" onSubmit={formik.handleSubmit}>
