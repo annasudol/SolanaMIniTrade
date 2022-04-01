@@ -7,7 +7,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button:FC<ButtonProps> = ({
   loading,
   disabled,
   children,
@@ -17,7 +17,6 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       className={clsx(
         "flex items-center justify-center text-xs font-semibold leading-5 h-12 px-12 rounded-lg disabled:cursor-not-allowed transition-colors ease-out group uppercase bg-main-yellow hover:bg-yellow-500 text-main-brown disabled:hover:bg-main-yellow w-[200px]",
-        className
       )}
       disabled={disabled || loading}
       {...props}
@@ -26,15 +25,3 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-function className(
-  arg0: string,
-  arg1: {
-    "bg-yellow-600 hover:bg-yellow-500 text-main-brown": boolean;
-    "bg-main-brown hover:bg-orange-800 text-white": boolean;
-    "bg-white hover:bg-gray-100 text-black-500": boolean;
-    "bg-yellow-400 hover:bg-yellow-500 text-black-500": boolean;
-  },
-  className: any
-) {
-  throw new Error("Function not implemented.");
-}

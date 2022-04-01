@@ -4,7 +4,7 @@ import React from "react";
 
 export const TransactionForm: React.FC = () => {
   const { formik, errors } = useValidation();
-  const [walletkey, setWalletkey] =React.useState('zzz')
+  // const [walletkey, setWalletkey] =React.useState('zzz')
 
   const [loading, setLoading] = React.useState(false);
   const handleSend = () => {
@@ -14,7 +14,7 @@ export const TransactionForm: React.FC = () => {
   return (
     <div className="sm:flex justify-center pt-12">
       <form className="w-full sm:w-1/2" onSubmit={formik.handleSubmit}>
-        <Input
+        {/* <Input
           type="number"
           step={0.1}
           disabled={!walletKey}
@@ -48,11 +48,8 @@ export const TransactionForm: React.FC = () => {
           }}
           placeholder="Enter address here"
           disabled={!walletKey}
-        />
+        /> */}
         <Button
-          onClick={handleSend}
-          disabled={buttonIsdisabled}
-          loading={loading}
         >
           Send
         </Button>
