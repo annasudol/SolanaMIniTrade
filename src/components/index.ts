@@ -3,4 +3,5 @@ export { Footer } from "./Footer";
 export { RequestAirdrop } from "./RequestAirdrop";
 export { SendTransaction } from "./SendTransaction";
 export { SignMessage } from "./SignMessage";
-export * as  NotificationList  from "./Notification"
+export { TransactionForm } from "./TransactionForm"
+export * as NotificationList from "./Notification";

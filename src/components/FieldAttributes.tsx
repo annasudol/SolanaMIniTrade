@@ -8,7 +8,7 @@ export interface FieldAttributesProps {
   className?: string;
   defaultClassName?: string;
   onLabelClick?: () => void;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export const FieldAttributes: React.FC<FieldAttributesProps> = ({
@@ -25,7 +25,7 @@ export const FieldAttributes: React.FC<FieldAttributesProps> = ({
     "mb-1 text-sm font-medium text-gray-600 select-none pl-2",
     {
       "opacity-75": disabled,
-    },
+    }
   );
 
   useEffect(() => {
@@ -33,7 +33,13 @@ export const FieldAttributes: React.FC<FieldAttributesProps> = ({
   }, []);
 
   return (
-    <div className={clsx("flex flex-col relative mb-12", defaultClassName, className)}>
+    <div
+      className={clsx(
+        "flex flex-col relative mb-12",
+        defaultClassName,
+        className
+      )}
+    >
       {label && (
         <label
           aria-hidden="true"
@@ -45,7 +51,9 @@ export const FieldAttributes: React.FC<FieldAttributesProps> = ({
         </label>
       )}
 
-      {label ? isValidElement(children) && cloneElement(children, { id }) : children}
+      {label
+        ? isValidElement(children) && cloneElement(children, { id })
+        : children}
 
       {error && (
         <small className="tg-caption-sm text-red-400 ml-2 mt-0.5 absolute top-full">
