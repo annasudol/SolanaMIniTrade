@@ -40,4 +40,8 @@ module.exports = {
     },
   },
   variants: {},
+  base: true,
+  utils: true,
+  logs: true,
+  rtl: false,
 };

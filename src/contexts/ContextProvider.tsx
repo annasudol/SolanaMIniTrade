@@ -43,9 +43,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     });
     console.error(error);
   }, []);
-
   return (
-    // TODO: updates needed for updating and referencing endpoint: wallet adapter rework
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider
         wallets={wallets}
