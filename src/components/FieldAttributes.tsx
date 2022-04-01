@@ -22,7 +22,7 @@ export const FieldAttributes: React.FC<FieldAttributesProps> = ({
 }) => {
   const [id, setId] = useState<string | undefined>(undefined);
   const classes = clsx(
-    "mb-1 text-sm font-medium text-gray-600 select-none pl-2",
+    "mb-1 text-sm font-medium text-gray-200 select-none pl-2",
     {
       "opacity-75": disabled,
     }
