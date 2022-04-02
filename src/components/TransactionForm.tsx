@@ -1,21 +1,42 @@
 import { Button, Input } from "@components";
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useValidation } from "../hooks/useValidation";
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import useUserSOLBalanceStore from '../stores/useUserSOLBalanceStore';
+import { notify } from "@utils";
+import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 
 export const TransactionForm: React.FC = () => {
   const { formik, errors } = useValidation();
-  const { publicKey } = useWallet();
-
+  const { publicKey, sendTransaction } = useWallet();
+  const { connection } = useConnection();
   const [loading, setLoading] = React.useState(false);
-  const handleSend = () => {
-    setLoading(true);
-  };
-
   const balance = useUserSOLBalanceStore((s) => s.balance);
   const handleAddMaxValue= async()=> await formik.setFieldValue('amount', balance, false);
   const buttonIsdisabled = !!errors.amount.error || !!errors.address.error || !publicKey;
+
+  const handleSend = useCallback(async () => {
+    setLoading(true);
+    let signature: TransactionSignature = '';
+    try {
+      const transaction = new Transaction().add(
+          SystemProgram.transfer({
+              fromPubkey: publicKey,
+              toPubkey: new PublicKey(formik.getFieldProps("address")),
+              lamports: formik.getFieldProps("amount") * LAMPORTS_PER_SOL,
+          })
+      );
+
+      signature = await sendTransaction(transaction, connection);
+
+      await connection.confirmTransaction(signature, 'confirmed');
+      notify({ type: 'success', message: 'Transaction successful!', txid: signature });
+    } catch (error: any) {
+        notify({ type: 'error', message: `Transaction failed!`, description: error?.message, txid: signature });
+        console.log('error', `Transaction failed! ${error?.message}`, signature);
+        return;
+    }
+  }, [publicKey, notify, connection, sendTransaction]);
 
   return (
     <div className="sm:flex justify-center pt-12">
