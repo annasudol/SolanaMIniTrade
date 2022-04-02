@@ -15,6 +15,8 @@ export const TransactionForm: React.FC = () => {
 
   const balance = useUserSOLBalanceStore((s) => s.balance);
   const handleAddMaxValue= async()=> await formik.setFieldValue('amount', balance, false);
+  const buttonIsdisabled = !!errors.amount.error || !!errors.address.error || !publicKey;
+
   return (
     <div className="sm:flex justify-center pt-12">
       <form className="w-full sm:w-1/2" onSubmit={formik.handleSubmit}>
@@ -53,9 +55,7 @@ export const TransactionForm: React.FC = () => {
           placeholder="Enter address here"
           disabled={!publicKey}
         />
-        <Button>
-          Send
-        </Button>
+        <Button onClick={handleSend} disabled={buttonIsdisabled} loading={loading}>Send</Button>
       </form>
     </div>
   );

@@ -12,7 +12,7 @@ export const Header: FC = () => {
         <div className="h-16 pt-4">
           <div className="flex justify-center">
             <div className="form-check form-switch">
-              <label className="flex items-center cursor-pointer relative mb-4">
+              <label className="flex items-center cursor-pointer relative mt-1 mr-2">
                 <input
                   type="checkbox"
                   className="sr-only"
@@ -31,7 +31,7 @@ export const Header: FC = () => {
             </div>
           </div>
         </div>
-        <WalletMultiButton className="btn mr-4" />
+        <WalletMultiButton className="" />
       </div>
     </header>
   );
