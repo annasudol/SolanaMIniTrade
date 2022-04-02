@@ -32,7 +32,7 @@ export const TransactionForm: React.FC = () => {
           placeholder="Min 0.02"
         >
           <div className="absolute top-9 right-4">
-            {balance !== undefined && (
+            {publicKey && balance !== undefined && (
               <button
                 onClick={handleAddMaxValue}
                 className="text-main-yellow mr-2"
@@ -55,8 +55,7 @@ export const TransactionForm: React.FC = () => {
           placeholder="Enter address here"
           disabled={!publicKey}
         />
-        <Button
-        >
+        <Button >
           Send
         </Button>
       </form>
