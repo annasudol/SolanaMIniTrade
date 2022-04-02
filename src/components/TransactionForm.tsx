@@ -6,8 +6,6 @@ import useUserSOLBalanceStore from '../stores/useUserSOLBalanceStore';
 
 export const TransactionForm: React.FC = () => {
   const { formik, errors } = useValidation();
-  const { getUserSOLBalance } = useUserSOLBalanceStore();
-  const { connection } = useConnection();
   const { publicKey } = useWallet();
 
   const [loading, setLoading] = React.useState(false);
@@ -55,7 +53,7 @@ export const TransactionForm: React.FC = () => {
           placeholder="Enter address here"
           disabled={!publicKey}
         />
-        <Button >
+        <Button>
           Send
         </Button>
       </form>
