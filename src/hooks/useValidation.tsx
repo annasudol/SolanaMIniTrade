@@ -8,7 +8,6 @@ import { validateSolAddress } from "@utils";
 import { PublicKey } from "@solana/web3.js";
 import {
   LAMPORTS_PER_SOL,
-  FeeCalculator,
   TransactionSignature,
   SystemProgram,
   Transaction
@@ -23,6 +22,7 @@ export const useValidation = () => {
     address: yup.string().required("Address is required"),
     amount: yup.number().min(0.02).required("Amount is required"),
   });
+
 
   const handleSend = useCallback(
     async (address: string, value: number) => {

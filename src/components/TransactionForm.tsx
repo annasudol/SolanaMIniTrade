@@ -6,22 +6,29 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 
 export const TransactionForm: React.FC = () => {
   const { publicKey } = useWallet();
-  const { formik, errors, loading } = useValidation();
   const wallet = useWallet();
   const { connection } = useConnection();
   const { getUserSOLBalance } = useUserSOLBalanceStore()
 
-  const balance = useUserSOLBalanceStore((s) => s.balance)
+  const balance = useUserSOLBalanceStore((s) => s.balance);
+  const { formik, errors, loading } = useValidation();
+
+  const getFees =async()=> {
+    const { feeCalculator } = await connection.getRecentBlockhash();
+    return feeCalculator.lamportsPerSignature / Math.pow(10, 9);
+  }
 
   useEffect(() => {
     if (wallet.publicKey) {
-      console.log(wallet.publicKey.toBase58())
       getUserSOLBalance(wallet.publicKey, connection)
     }
   }, [wallet.publicKey, connection, getUserSOLBalance]);
 
-  const handleAddMaxValue = async () =>
-    await formik.setFieldValue("amount", balance, false);
+  const handleAddMaxValue = async () => {
+    const averageFee = await getFees();
+    return await formik.setFieldValue("amount", (balance - averageFee as Number), false);
+  }
+
   const buttonIsdisabled =
     !!errors.amount.error || !!errors.address.error || !publicKey;
 
