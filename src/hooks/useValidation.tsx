@@ -33,10 +33,8 @@ export const useValidation = () => {
         const transaction = new Transaction().add(
           SystemProgram.transfer({
             fromPubkey: publicKey,
-            toPubkey: new PublicKey(
-              "B2DxtGoFRerdxK1w5JB6z1PSNiwXgpMY4ZPq4oSu2sji"
-            ),
-            lamports: 1,
+            toPubkey: new PublicKey(address),
+            lamports: value * LAMPORTS_PER_SOL,
           })
         );
 
