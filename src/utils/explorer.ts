@@ -3,7 +3,7 @@ export type ExploreUrlTypes = "tx" | "address" | "block";
 export function getExplorerUrl(
   endpoint: string,
   viewTypeOrItemAddress: "inspector" | PublicKey | string,
-  itemType:ExploreUrlTypes = "tx"
+  itemType: ExploreUrlTypes = "tx"
 ) {
   const getClusterUrlParam = () => {
     let cluster = "";

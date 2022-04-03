@@ -3,14 +3,15 @@ import { useEffect } from "react";
 import useNotificationStore from "../stores/useNotificationStore";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { getExplorerUrl } from "../utils/explorer";
-import Image from 'next/image';
-import errorIcon from './img/error.png';
-import successIcon from './img/success.png';
-import cancelIcon from './img/x.png';
+import Image from "next/image";
+import errorIcon from "./img/error.png";
+import successIcon from "./img/success.png";
+import cancelIcon from "./img/x.png";
 
 const NotificationList = () => {
-  const { notifications, set: setNotificationStore } = useNotificationStore((s) => s);
-
+  const { notifications, set: setNotificationStore } = useNotificationStore(
+    (s) => s
+  );
   const reversedNotifications = [...notifications].reverse();
 
   return (
@@ -41,7 +42,7 @@ const NotificationList = () => {
 
 const Notification = ({ type, message, description, txid, onHide }) => {
   const { connection } = useConnection();
-
+  console.log(type, "type");
   // TODO: we dont have access to the network or endpoint here..
   // getExplorerUrl(connection., txid, 'tx')
   // Either a provider, context, and or wallet adapter related pro/contx need updated
@@ -57,24 +58,33 @@ const Notification = ({ type, message, description, txid, onHide }) => {
   }, [onHide]);
 
   return (
-    <div
-      className={`max-w-sm w-full bg-bkg-1 shadow-lg rounded-md mt-2 pointer-events-auto ring-1 ring-main-yellow p-2 mx-4 mb-12 overflow-hidden`}
-    >
+    <div className="max-w-sm w-full bg-bkg-1 shadow-lg rounded-md mt-2 pointer-events-auto ring-1 ring-main-yellow p-2 mx-4 mb-12 overflow-hidden">
       <div className={`p-4`}>
         <div className={`flex items-center`}>
-          <div className={`flex-shrink-0`}>
-          <Image
-              src={type === "suceess" ? successIcon : errorIcon}
+          <div className={`flex-shrink-0 mr-2`}>
+            {type === "success" && <Image
+              src={successIcon}
               alt={type}
               width="30px"
               height="30px"
               layout="fixed"
-          />
+            />}
+          {type === "error" && <Image
+              src={errorIcon}
+              alt={type}
+              width="30px"
+              height="30px"
+              layout="fixed"
+            />}
           </div>
           <div className="ml-2 w-0 flex-1">
-            <div className="font-bold text-fgd-1 text-main-brown">{message}</div>
+            <div className="font-bold text-fgd-1 text-main-yellow">
+              {message}
+            </div>
             {description ? (
-              <p className={`mt-0.5 text-sm text-fgd-2 text-main-yellow`}>{description}</p>
+              <p className={`mt-0.5 text-sm text-fgd-2 text-main-yellow`}>
+                {description}
+              </p>
             ) : null}
             {txid ? (
               <div className="flex flex-row">
@@ -114,13 +124,12 @@ const Notification = ({ type, message, description, txid, onHide }) => {
               className="bg-bkg-2 default-transition rounded-md inline-flex text-fgd-3 hover:text-fgd-4 focus:outline-none"
             >
               <Image
-              src={cancelIcon}
-              alt={type}
-              width="20px"
-              height="20px"
-              layout="intrinsic"
-          />
-              
+                src={cancelIcon}
+                alt={type}
+                width="20px"
+                height="20px"
+                layout="intrinsic"
+              />
             </button>
           </div>
         </div>

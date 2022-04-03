@@ -33,11 +33,21 @@ export const useValidation = () => {
         const transaction = new Transaction().add(
           SystemProgram.transfer({
             fromPubkey: publicKey,
-            toPubkey: new PublicKey(address),
-            lamports: value * LAMPORTS_PER_SOL,
+            toPubkey: new PublicKey(
+              "B2DxtGoFRerdxK1w5JB6z1PSNiwXgpMY4ZPq4oSu2sji"
+            ),
+            lamports: 1,
           })
         );
+
         signature = await sendTransaction(transaction, connection);
+
+        await connection.confirmTransaction(signature, "confirmed");
+        notify({
+          type: "success",
+          message: "Transaction successful!",
+          txid: signature,
+        });
 
         await connection.confirmTransaction(signature, "confirmed");
         setLoading(false);

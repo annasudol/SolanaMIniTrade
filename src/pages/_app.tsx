@@ -19,11 +19,14 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
       <ContextProvider>
         <div className="flex flex-col h-screen bg-main-gray-1">
           <Notifications />
-         
+
           <Header />
           <Component {...pageProps} />
           <TransactionForm />
-          <Toaster toastOptions={{ className: "react-hot-toast" }}  position="bottom-left" />
+          <Toaster
+            toastOptions={{ className: "react-hot-toast" }}
+            position="bottom-left"
+          />
           <Footer />
         </div>
       </ContextProvider>
