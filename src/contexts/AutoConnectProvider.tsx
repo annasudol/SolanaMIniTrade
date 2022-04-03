@@ -16,13 +16,16 @@ export function useAutoConnect(): AutoConnectContextState {
   return useContext(AutoConnectContext);
 }
 
-export const AutoConnectProvider: FC<{ children: ReactNode, network: WalletAdapterNetwork }> = ({
-  children, network
-}) => {
+export const AutoConnectProvider: FC<{
+  children: ReactNode;
+  network: WalletAdapterNetwork;
+}> = ({ children, network }) => {
   const [autoConnect, setAutoConnect] = useLocalStorage("autoConnect", true);
 
   return (
-    <AutoConnectContext.Provider value={{ autoConnect, setAutoConnect, network }}>
+    <AutoConnectContext.Provider
+      value={{ autoConnect, setAutoConnect, network }}
+    >
       {children}
     </AutoConnectContext.Provider>
   );

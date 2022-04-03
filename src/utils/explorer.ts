@@ -1,29 +1,24 @@
 import { PublicKey } from "@solana/web3.js";
-import { useRouter } from "next/router";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 export type ExploreUrlTypes = "tx" | "address" | "block";
-export type EndpointTypes = "mainnet" | "devnet" | "localnet";
+export type EndpointTypes = "localnet" | WalletAdapterNetwork;
 
 export function getExplorerUrl(
   viewTypeOrItemAddress: "inspector" | PublicKey | string,
+  network: EndpointTypes = WalletAdapterNetwork.Devnet,
   itemType: ExploreUrlTypes = "tx"
 ): string {
   const getClusterUrlParam = () => {
-    const router = useRouter();
-    const { cluster } = router.query;
-    console.log(router)
-  //   const endpoint = cluster ? (cluster as EndpointTypes) : "mainnet";
-  //   let cluster = "";
-  //   if (endpoint === "localnet") {
-  //     cluster = `custom&customUrl=${encodeURIComponent(
-  //       "http://127.0.0.1:8899"
-  //     )}`;
-  //   } else if (endpoint === "https://api.devnet.solana.com") {
-  //     cluster = "devnet";
-  //   }
-  //   console.log(cluster, "cluster");
-  //   return cluster ? `?cluster=${cluster}` : "";
+    let cluster='';
+    if (network === "localnet") {
+      cluster = `custom&customUrl=${encodeURIComponent(
+        "http://127.0.0.1:8899"
+      )}`;
+    } else if (network === WalletAdapterNetwork.Mainnet) {
+      cluster;
+     } else cluster=`?cluster=${network}`
+    return cluster;
   };
-
   return `https://explorer.solana.com/${itemType}/${viewTypeOrItemAddress}${getClusterUrlParam()}`;
 }

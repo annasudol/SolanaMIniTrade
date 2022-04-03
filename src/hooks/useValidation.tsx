@@ -10,7 +10,7 @@ import {
   LAMPORTS_PER_SOL,
   TransactionSignature,
   SystemProgram,
-  Transaction
+  Transaction,
 } from "@solana/web3.js";
 
 export const useValidation = (balance: number) => {
@@ -22,7 +22,6 @@ export const useValidation = (balance: number) => {
     address: yup.string().required("Address is required"),
     amount: yup.number().min(0.02).required("Amount is required"),
   });
-
 
   const handleSend = useCallback(
     async (address: string, value: number) => {
@@ -42,7 +41,7 @@ export const useValidation = (balance: number) => {
         await connection.confirmTransaction(signature, "confirmed");
         notify({
           type: "success",
-          message: "Transaction successful!",
+          message: "Transaction is successful!",
           txid: signature,
         });
         setLoading(false);
@@ -85,7 +84,10 @@ export const useValidation = (balance: number) => {
             "Not valid solana address"),
       },
       amount: {
-        error: formik.touched.amount && formik.errors.amount || formik.values.amount > balance && "Value is higher than your balane",
+        error:
+          (formik.touched.amount && formik.errors.amount) ||
+          (formik.values.amount > balance &&
+            "Value is higher than your balane"),
       },
     }),
     [formik.touched, formik.errors]

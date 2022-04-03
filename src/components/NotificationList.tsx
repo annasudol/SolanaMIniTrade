@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-
 import useNotificationStore from "../stores/useNotificationStore";
-import { useConnection } from "@solana/wallet-adapter-react";
 import { TransactionLink } from "@components";
 import Image from "next/image";
 import errorIcon from "./img/error.png";
@@ -41,8 +39,6 @@ export const NotificationList = () => {
 };
 
 const Notification = ({ type, message, description, txid, onHide }) => {
-  const { connection } = useConnection();
-
   useEffect(() => {
     const id = setTimeout(() => {
       onHide();
@@ -58,7 +54,7 @@ const Notification = ({ type, message, description, txid, onHide }) => {
       <div className={`p-4`}>
         <div className={`flex items-center`}>
           <div className={`flex-shrink-0 mr-2`}>
-            {type === "success" && (
+            {type === "success" ? (
               <Image
                 src={successIcon}
                 alt={type}
@@ -66,8 +62,7 @@ const Notification = ({ type, message, description, txid, onHide }) => {
                 height="30px"
                 layout="fixed"
               />
-            )}
-            {type === "error" && (
+            ) : (
               <Image
                 src={errorIcon}
                 alt={type}
@@ -78,19 +73,21 @@ const Notification = ({ type, message, description, txid, onHide }) => {
             )}
           </div>
           <div className="ml-2 w-0 flex-1">
-            <div className="font-bold text-fgd-1 text-main-yellow">
-              {message}
-            </div>
-            {description ? (
+            {message && (
+              <div className="font-bold text-fgd-1 text-main-yellow">
+                {message}
+              </div>
+            )}
+            {description && (
               <p className={`mt-0.5 text-sm text-fgd-2 text-main-yellow`}>
                 {description}
               </p>
-            ) : null}
-            {txid ? (
+            )}
+            {txid && (
               <div className="flex flex-row">
                 <TransactionLink txid={txid} />
               </div>
-            ) : null}
+            )}
           </div>
           <div className="ml-4 flex-shrink-0 self-start flex">
             <button

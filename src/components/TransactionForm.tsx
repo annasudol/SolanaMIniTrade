@@ -2,34 +2,41 @@ import { Button, Input } from "@components";
 import { useValidation } from "../hooks/useValidation";
 import React, { useEffect, useState } from "react";
 import useUserSOLBalanceStore from "../stores/useUserSOLBalanceStore";
-import { useWallet, useConnection } from '@solana/wallet-adapter-react';
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 
 export const TransactionForm: React.FC = () => {
   const [averageFee, setAverageFee] = useState(0);
   const { publicKey } = useWallet();
   const wallet = useWallet();
   const { connection } = useConnection();
-  const { getUserSOLBalance } = useUserSOLBalanceStore()
+  const { getUserSOLBalance } = useUserSOLBalanceStore();
 
   const balance = useUserSOLBalanceStore((s) => s.balance);
   const { formik, errors, loading } = useValidation(balance);
 
-  const getFees =async()=> {
+  const getFees = async () => {
     const { feeCalculator } = await connection.getRecentBlockhash();
-    setAverageFee(feeCalculator.lamportsPerSignature / Math.pow(10, 9))
+    setAverageFee(feeCalculator.lamportsPerSignature / Math.pow(10, 9));
     return feeCalculator.lamportsPerSignature / Math.pow(10, 9);
-  }
+  };
 
   useEffect(() => {
     if (wallet.publicKey) {
-      getUserSOLBalance(wallet.publicKey, connection)
+      getUserSOLBalance(wallet.publicKey, connection);
     }
     getFees();
   }, [wallet.publicKey, connection, getUserSOLBalance]);
 
   const handleAddMaxValue = async () => {
-    return (balance > averageFee) && await formik.setFieldValue("amount", (balance - averageFee as Number), false);
-  }
+    return (
+      balance > averageFee &&
+      (await formik.setFieldValue(
+        "amount",
+        (balance - averageFee) as Number,
+        false
+      ))
+    );
+  };
 
   const buttonIsdisabled =
     !!errors.amount.error || !!errors.address.error || !publicKey;
@@ -49,7 +56,7 @@ export const TransactionForm: React.FC = () => {
           placeholder="Min 0.02"
         >
           <div className="absolute top-9 right-4">
-            {(balance > averageFee && publicKey) && (
+            {balance > averageFee && publicKey && (
               <button
                 onClick={handleAddMaxValue}
                 className="text-main-yellow mr-2"

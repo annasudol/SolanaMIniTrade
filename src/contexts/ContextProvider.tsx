@@ -16,8 +16,11 @@ import { FC, ReactNode, useCallback, useMemo } from "react";
 import { AutoConnectProvider, useAutoConnect } from "./AutoConnectProvider";
 import { notify } from "@utils";
 
-const WalletContextProvider: FC<{ children: ReactNode,  network: WalletAdapterNetwork }> = ({ children, network }) => {
+const WalletContextProvider: FC<{
+  children: ReactNode;
+}> = ({ children }) => {
   const { autoConnect } = useAutoConnect();
+  const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   const wallets = useMemo(
@@ -51,10 +54,15 @@ const WalletContextProvider: FC<{ children: ReactNode,  network: WalletAdapterNe
   );
 };
 
-export const ContextProvider: FC<{ children: ReactNode, network: WalletAdapterNetwork }> = ({ children, network }) => {
+export const ContextProvider: FC<{
+  children: ReactNode;
+  network: WalletAdapterNetwork;
+}> = ({ children, network }) => {
   return (
     <AutoConnectProvider network={network}>
-      <WalletContextProvider network={network}>{children}</WalletContextProvider>
+      <WalletContextProvider>
+        {children}
+      </WalletContextProvider>
     </AutoConnectProvider>
   );
 };
