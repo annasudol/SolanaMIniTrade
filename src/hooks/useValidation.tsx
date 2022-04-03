@@ -13,7 +13,7 @@ import {
   Transaction
 } from "@solana/web3.js";
 
-export const useValidation = () => {
+export const useValidation = (balance: number) => {
   const { sendTransaction, publicKey } = useWallet();
   const { connection } = useConnection();
   const [loading, setLoading] = useState(false);
@@ -85,7 +85,7 @@ export const useValidation = () => {
             "Not valid solana address"),
       },
       amount: {
-        error: formik.touched.amount && formik.errors.amount,
+        error: formik.touched.amount && formik.errors.amount || formik.values.amount > balance && "Value is higher than your balane",
       },
     }),
     [formik.touched, formik.errors]
