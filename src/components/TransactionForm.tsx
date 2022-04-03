@@ -1,42 +1,18 @@
 import { Button, Input } from "@components";
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useValidation } from "../hooks/useValidation";
-import React, { useMemo, useCallback } from "react";
-import useUserSOLBalanceStore from '../stores/useUserSOLBalanceStore';
-import { notify } from "@utils";
-import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import React from "react";
+import useUserSOLBalanceStore from "../stores/useUserSOLBalanceStore";
 
 export const TransactionForm: React.FC = () => {
-  const { formik, errors } = useValidation();
-  const { publicKey, sendTransaction } = useWallet();
-  const { connection } = useConnection();
-  const [loading, setLoading] = React.useState(false);
+  const { publicKey } = useWallet();
+  const { formik, errors, loading } = useValidation();
+
   const balance = useUserSOLBalanceStore((s) => s.balance);
-  const handleAddMaxValue= async()=> await formik.setFieldValue('amount', balance, false);
-  const buttonIsdisabled = !!errors.amount.error || !!errors.address.error || !publicKey;
-
-  const handleSend = useCallback(async () => {
-    setLoading(true);
-    let signature: TransactionSignature = '';
-    try {
-      const transaction = new Transaction().add(
-          SystemProgram.transfer({
-              fromPubkey: publicKey,
-              toPubkey: new PublicKey(formik.getFieldProps("address")),
-              lamports: formik.getFieldProps("amount") * LAMPORTS_PER_SOL,
-          })
-      );
-
-      signature = await sendTransaction(transaction, connection);
-
-      await connection.confirmTransaction(signature, 'confirmed');
-      notify({ type: 'success', message: 'Transaction successful!', txid: signature });
-    } catch (error: any) {
-        notify({ type: 'error', message: `Transaction failed!`, description: error?.message, txid: signature });
-        console.log('error', `Transaction failed! ${error?.message}`, signature);
-        return;
-    }
-  }, [publicKey, notify, connection, sendTransaction]);
+  const handleAddMaxValue = async () =>
+    await formik.setFieldValue("amount", balance, false);
+  const buttonIsdisabled =
+    !!errors.amount.error || !!errors.address.error || !publicKey;
 
   return (
     <div className="sm:flex justify-center pt-12">
@@ -76,11 +52,10 @@ export const TransactionForm: React.FC = () => {
           placeholder="Enter address here"
           disabled={!publicKey}
         />
-        <Button onClick={handleSend} disabled={buttonIsdisabled} loading={loading}>Send</Button>
+        <Button type="submit" disabled={buttonIsdisabled} loading={loading}>
+          Send
+        </Button>
       </form>
     </div>
   );
 };
-function props(props: any): [any] {
-  throw new Error("Function not implemented.");
-}

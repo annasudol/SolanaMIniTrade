@@ -1,26 +1,21 @@
 import { useEffect } from "react";
-import {
-  CheckCircleIcon,
-  InformationCircleIcon,
-  XCircleIcon,
-} from "@heroicons/react/outline";
-import { XIcon } from "@heroicons/react/solid";
+
 import useNotificationStore from "../stores/useNotificationStore";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { getExplorerUrl } from "../utils/explorer";
+import Image from 'next/image';
+import errorIcon from './img/error.png';
+import successIcon from './img/success.png';
+import cancelIcon from './img/x.png';
 
 const NotificationList = () => {
-  const { notifications, set: setNotificationStore } = useNotificationStore(
-    (s) => s
-  );
+  const { notifications, set: setNotificationStore } = useNotificationStore((s) => s);
 
   const reversedNotifications = [...notifications].reverse();
 
   return (
-    <div
-      className={`z-20 fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6`}
-    >
-      <div className={`flex flex-col w-full`}>
+    <div className="z-20 fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 border-main-yellow">
+      <div className="flex flex-col w-full">
         {reversedNotifications.map((n, idx) => (
           <Notification
             key={`${n.message}${idx}`}
@@ -54,7 +49,7 @@ const Notification = ({ type, message, description, txid, onHide }) => {
   useEffect(() => {
     const id = setTimeout(() => {
       onHide();
-    }, 8000);
+    }, 10000);
 
     return () => {
       clearInterval(id);
@@ -63,23 +58,23 @@ const Notification = ({ type, message, description, txid, onHide }) => {
 
   return (
     <div
-      className={`max-w-sm w-full bg-bkg-1 shadow-lg rounded-md mt-2 pointer-events-auto ring-1 ring-black ring-opacity-5 p-2 mx-4 mb-12 overflow-hidden`}
+      className={`max-w-sm w-full bg-bkg-1 shadow-lg rounded-md mt-2 pointer-events-auto ring-1 ring-main-yellow p-2 mx-4 mb-12 overflow-hidden`}
     >
       <div className={`p-4`}>
         <div className={`flex items-center`}>
           <div className={`flex-shrink-0`}>
-            {type === "success" ? (
-              <CheckCircleIcon className={`h-8 w-8 mr-1 text-green`} />
-            ) : null}
-            {type === "info" && (
-              <InformationCircleIcon className={`h-8 w-8 mr-1 text-red`} />
-            )}
-            {type === "error" && <XCircleIcon className={`h-8 w-8 mr-1`} />}
+          <Image
+              src={type === "suceess" ? successIcon : errorIcon}
+              alt={type}
+              width="30px"
+              height="30px"
+              layout="fixed"
+          />
           </div>
-          <div className={`ml-2 w-0 flex-1`}>
-            <div className={`font-bold text-fgd-1`}>{message}</div>
+          <div className="ml-2 w-0 flex-1">
+            <div className="font-bold text-fgd-1 text-main-brown">{message}</div>
             {description ? (
-              <p className={`mt-0.5 text-sm text-fgd-2`}>{description}</p>
+              <p className={`mt-0.5 text-sm text-fgd-2 text-main-yellow`}>{description}</p>
             ) : null}
             {txid ? (
               <div className="flex flex-row">
@@ -89,7 +84,7 @@ const Notification = ({ type, message, description, txid, onHide }) => {
                   }
                   target="_blank"
                   rel="noreferrer"
-                  className="flex flex-row link link-accent"
+                  className="flex flex-row link link-accent text-main-gray-3"
                 >
                   <svg
                     className="flex-shrink-0 h-4 ml-2 mt-0.5 text-primary-light w-4"
@@ -113,13 +108,19 @@ const Notification = ({ type, message, description, txid, onHide }) => {
               </div>
             ) : null}
           </div>
-          <div className={`ml-4 flex-shrink-0 self-start flex`}>
+          <div className="ml-4 flex-shrink-0 self-start flex">
             <button
               onClick={() => onHide()}
-              className={`bg-bkg-2 default-transition rounded-md inline-flex text-fgd-3 hover:text-fgd-4 focus:outline-none`}
+              className="bg-bkg-2 default-transition rounded-md inline-flex text-fgd-3 hover:text-fgd-4 focus:outline-none"
             >
-              <span className={`sr-only`}>Close</span>
-              <XIcon className="h-5 w-5" />
+              <Image
+              src={cancelIcon}
+              alt={type}
+              width="20px"
+              height="20px"
+              layout="intrinsic"
+          />
+              
             </button>
           </div>
         </div>

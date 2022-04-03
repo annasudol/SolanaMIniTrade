@@ -11,7 +11,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement>, BaseProps {
   handleChange?: any;
 }
 
-
 export const Input: React.FC<InputProps> = ({
   className,
   fieldAttributesProps,
@@ -25,15 +24,19 @@ export const Input: React.FC<InputProps> = ({
     {
       "cursor-not-allowed opacity-75": props.disabled,
       "border-black-200 focus:border-yellow-700": !hasError,
-      "border-red-400 focus:border-red-400 text-red-400": hasError
+      "border-red-400 focus:border-red-400 text-red-400": hasError,
     },
     className
   );
-  const filedProps = {...fieldAttributesProps, disabled: props.disabled}
+  const filedProps = { ...fieldAttributesProps, disabled: props.disabled };
   return (
     <div className="relative">
       <FieldAttributes {...filedProps}>
-        {handleChange ? <input {...props} onChange={handleChange} /> :  <input className={classes} {...(props as InputProps)} />}
+        {handleChange ? (
+          <input {...props} onChange={handleChange} />
+        ) : (
+          <input className={classes} {...(props as InputProps)} />
+        )}
       </FieldAttributes>
       {children}
     </div>

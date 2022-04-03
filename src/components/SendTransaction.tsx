@@ -22,8 +22,6 @@ export const SendTransaction: FC = () => {
 
     let signature: TransactionSignature = "";
     try {
-      console.log(Keypair.generate().publicKey, "Keypair.generate().publicKey");
-      console.log(publicKey, "publicKey");
       const transaction = new Transaction().add(
         SystemProgram.transfer({
           fromPubkey: publicKey,

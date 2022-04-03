@@ -18,7 +18,7 @@ a {
   box-sizing: border-box;
 }
 
-.wallet-adapter-button {
+header .wallet-adapter-button {
   border: 1px solid #FCC419;
   font-weight: 400;
   border-radius: 10px;

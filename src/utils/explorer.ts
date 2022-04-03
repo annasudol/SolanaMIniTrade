@@ -1,9 +1,9 @@
 import { PublicKey } from "@solana/web3.js";
-
+export type ExploreUrlTypes = "tx" | "address" | "block";
 export function getExplorerUrl(
   endpoint: string,
   viewTypeOrItemAddress: "inspector" | PublicKey | string,
-  itemType = "address" // | 'tx' | 'block'
+  itemType:ExploreUrlTypes = "tx"
 ) {
   const getClusterUrlParam = () => {
     let cluster = "";
