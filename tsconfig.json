@@ -15,7 +15,9 @@
       "@stores/*": ["stores/*"],
       "@stores": ["stores"],
       "@utils/*": ["utils/*"],
-      "@utils": ["utils"]
+      "@utils": ["utils"],
+      "@interfaces/*": ["interfaces/*"],
+      "@interfaces": ["interfaces"]
     },
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],

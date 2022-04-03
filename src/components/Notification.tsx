@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import useNotificationStore from "../stores/useNotificationStore";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { getExplorerUrl } from "../utils/explorer";
+import { TransactionLink } from "@components";
 import Image from "next/image";
 import errorIcon from "./img/error.png";
 import successIcon from "./img/success.png";
@@ -62,20 +62,24 @@ const Notification = ({ type, message, description, txid, onHide }) => {
       <div className={`p-4`}>
         <div className={`flex items-center`}>
           <div className={`flex-shrink-0 mr-2`}>
-            {type === "success" && <Image
-              src={successIcon}
-              alt={type}
-              width="30px"
-              height="30px"
-              layout="fixed"
-            />}
-          {type === "error" && <Image
-              src={errorIcon}
-              alt={type}
-              width="30px"
-              height="30px"
-              layout="fixed"
-            />}
+            {type === "success" && (
+              <Image
+                src={successIcon}
+                alt={type}
+                width="30px"
+                height="30px"
+                layout="fixed"
+              />
+            )}
+            {type === "error" && (
+              <Image
+                src={errorIcon}
+                alt={type}
+                width="30px"
+                height="30px"
+                layout="fixed"
+              />
+            )}
           </div>
           <div className="ml-2 w-0 flex-1">
             <div className="font-bold text-fgd-1 text-main-yellow">
@@ -88,33 +92,7 @@ const Notification = ({ type, message, description, txid, onHide }) => {
             ) : null}
             {txid ? (
               <div className="flex flex-row">
-                <a
-                  href={
-                    "https://explorer.solana.com/tx/" + txid + `?cluster=devnet`
-                  }
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex flex-row link link-accent text-main-gray-3"
-                >
-                  <svg
-                    className="flex-shrink-0 h-4 ml-2 mt-0.5 text-primary-light w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    ></path>
-                  </svg>
-                  <div className="flex mx-4">
-                    {txid.slice(0, 8)}...
-                    {txid.slice(txid.length - 8)}
-                  </div>
-                </a>
+                <TransactionLink txid={txid} />
               </div>
             ) : null}
           </div>

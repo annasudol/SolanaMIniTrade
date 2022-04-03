@@ -10,7 +10,6 @@ import {
   LAMPORTS_PER_SOL,
   TransactionSignature,
   SystemProgram,
-  Keypair,
   Transaction,
 } from "@solana/web3.js";
 
@@ -39,21 +38,18 @@ export const useValidation = () => {
         );
 
         signature = await sendTransaction(transaction, connection);
-
         await connection.confirmTransaction(signature, "confirmed");
         notify({
           type: "success",
           message: "Transaction successful!",
           txid: signature,
         });
-
-        await connection.confirmTransaction(signature, "confirmed");
         setLoading(false);
       } catch (error: any) {
         setLoading(false);
         notify({
           type: "error",
-          message: `Transaction failed!`,
+          message: "Transaction failed!",
           description: error?.message,
           txid: signature,
         });
