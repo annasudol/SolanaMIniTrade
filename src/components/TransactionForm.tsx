@@ -1,14 +1,25 @@
 import { Button, Input } from "@components";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { useValidation } from "../hooks/useValidation";
-import React from "react";
+import React, { useEffect } from "react";
 import useUserSOLBalanceStore from "../stores/useUserSOLBalanceStore";
+import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 
 export const TransactionForm: React.FC = () => {
   const { publicKey } = useWallet();
   const { formik, errors, loading } = useValidation();
+  const wallet = useWallet();
+  const { connection } = useConnection();
+  const { getUserSOLBalance } = useUserSOLBalanceStore()
 
-  const balance = useUserSOLBalanceStore((s) => s.balance);
+  const balance = useUserSOLBalanceStore((s) => s.balance)
+
+  useEffect(() => {
+    if (wallet.publicKey) {
+      console.log(wallet.publicKey.toBase58())
+      getUserSOLBalance(wallet.publicKey, connection)
+    }
+  }, [wallet.publicKey, connection, getUserSOLBalance]);
+
   const handleAddMaxValue = async () =>
     await formik.setFieldValue("amount", balance, false);
   const buttonIsdisabled =

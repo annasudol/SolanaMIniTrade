@@ -8,7 +8,7 @@ import errorIcon from "./img/error.png";
 import successIcon from "./img/success.png";
 import cancelIcon from "./img/x.png";
 
-const NotificationList = () => {
+export const NotificationList = () => {
   const { notifications, set: setNotificationStore } = useNotificationStore(
     (s) => s
   );
@@ -115,5 +115,3 @@ const Notification = ({ type, message, description, txid, onHide }) => {
     </div>
   );
 };
-
-export default NotificationList;

@@ -8,9 +8,10 @@ import { validateSolAddress } from "@utils";
 import { PublicKey } from "@solana/web3.js";
 import {
   LAMPORTS_PER_SOL,
+  FeeCalculator,
   TransactionSignature,
   SystemProgram,
-  Transaction,
+  Transaction
 } from "@solana/web3.js";
 
 export const useValidation = () => {
