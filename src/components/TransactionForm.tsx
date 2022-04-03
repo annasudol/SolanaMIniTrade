@@ -14,6 +14,7 @@ export const TransactionForm: React.FC = () => {
   const { formik, errors, loading } = useValidation();
 
   const getFees =async()=> {
+  
     const { feeCalculator } = await connection.getRecentBlockhash();
     return feeCalculator.lamportsPerSignature / Math.pow(10, 9);
   }
@@ -26,7 +27,7 @@ export const TransactionForm: React.FC = () => {
 
   const handleAddMaxValue = async () => {
     const averageFee = await getFees();
-    return await formik.setFieldValue("amount", (balance - averageFee as Number), false);
+    return (balance > averageFee) && await formik.setFieldValue("amount", (balance - averageFee as Number), false);
   }
 
   const buttonIsdisabled =

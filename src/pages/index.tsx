@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { appConfig } from "@utils";
+import { TransactionForm } from "@components";
 
 const Home: NextPage = () => {
   return (
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
           key="viewport"
         />
       </Head>
+      <TransactionForm />
     </>
   );
 };

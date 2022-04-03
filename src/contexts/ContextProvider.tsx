@@ -14,11 +14,10 @@ import {
 import { clusterApiUrl } from "@solana/web3.js";
 import { FC, ReactNode, useCallback, useMemo } from "react";
 import { AutoConnectProvider, useAutoConnect } from "./AutoConnectProvider";
-import { notify } from "../utils/notifications";
+import { notify } from "@utils";
 
-const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+const WalletContextProvider: FC<{ children: ReactNode,  network: WalletAdapterNetwork }> = ({ children, network }) => {
   const { autoConnect } = useAutoConnect();
-  const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   const wallets = useMemo(
@@ -52,10 +51,10 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export const ContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const ContextProvider: FC<{ children: ReactNode, network: WalletAdapterNetwork }> = ({ children, network }) => {
   return (
-    <AutoConnectProvider>
-      <WalletContextProvider>{children}</WalletContextProvider>
+    <AutoConnectProvider network={network}>
+      <WalletContextProvider network={network}>{children}</WalletContextProvider>
     </AutoConnectProvider>
   );
 };

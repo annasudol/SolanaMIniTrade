@@ -1,7 +1,8 @@
 import { PublicKey } from "@solana/web3.js";
-import { EndpointTypes } from "@interfaces";
 import { useRouter } from "next/router";
+
 export type ExploreUrlTypes = "tx" | "address" | "block";
+export type EndpointTypes = "mainnet" | "devnet" | "localnet";
 
 export function getExplorerUrl(
   viewTypeOrItemAddress: "inspector" | PublicKey | string,
@@ -10,7 +11,7 @@ export function getExplorerUrl(
   const getClusterUrlParam = () => {
     const router = useRouter();
     const { cluster } = router.query;
-    console.log(cluster)
+    console.log(router)
   //   const endpoint = cluster ? (cluster as EndpointTypes) : "mainnet";
   //   let cluster = "";
   //   if (endpoint === "localnet") {
