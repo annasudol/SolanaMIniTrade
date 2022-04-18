@@ -2,9 +2,17 @@ import { FC } from "react";
 
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useAutoConnect } from "../contexts/AutoConnectProvider";
+import clsx from "clsx";
 
 export const Header: FC = () => {
   const { autoConnect, setAutoConnect } = useAutoConnect();
+
+  const classes = clsx(
+    "text-gray-300 text-sm text-PTSans ml-2",
+    {
+      "opacity-70 line-through" : !autoConnect,
+    }
+  );
   return (
     <header className="navbar md:mb-2 bg-main-gray-2 flex justify-end">
       <div className="w-96 flex justify-end">
@@ -19,11 +27,8 @@ export const Header: FC = () => {
                   checked={autoConnect}
                 />
                 <div className="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
-                <span
-                  className={`text-gray-300 text-sm text-PTSans ml-2 ${
-                    !autoConnect && "opacity-70 line-through"
-                  }`}
-                >
+          
+                <span className={classes}>
                   Autoconnected
                 </span>
               </label>
