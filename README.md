@@ -4,7 +4,7 @@ Mini trading platform for sending 'sol' tokens using solana network and Phantom 
 
 ## Instructions
   1. Clone this repository:
-  git clone [Solana MiniTrade](https://github.com/ankaszatanka/solanaMIniTrade)
+  git clone https://github.com/ankaszatanka/solanaMIniTrade
  
   2. Navigate to the repository
   ```
