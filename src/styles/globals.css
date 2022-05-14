@@ -45,6 +45,17 @@ input[type=number] {
 }
 
 
+/* input::selection {
+  background-color:#1B1F22 !important;
+} */
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+  background-color:#1B1F22 !important;
+  color: #fff;
+}
+
 @font-face {
   font-family: 'Oswald', sans-serif;
   src: url('/assets/fonts/Oswald/Oswald-Bold.ttf') format('ttf');

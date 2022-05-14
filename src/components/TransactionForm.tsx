@@ -38,7 +38,7 @@ export const TransactionForm: React.FC = () => {
     );
   };
 
-  const buttonIsdisabled =
+  const buttonIsDisabled =
     !!errors.amount.error || !!errors.address.error || !publicKey;
 
   return (
@@ -49,6 +49,7 @@ export const TransactionForm: React.FC = () => {
           step={0.1}
           disabled={!publicKey}
           {...formik.getFieldProps("amount")}
+
           fieldAttributesProps={{
             error: publicKey && errors.amount.error,
             label: "Amount",
@@ -79,7 +80,7 @@ export const TransactionForm: React.FC = () => {
           placeholder="Enter address here"
           disabled={!publicKey}
         />
-        <Button type="submit" disabled={buttonIsdisabled} loading={loading}>
+        <Button type="submit" disabled={buttonIsDisabled} loading={loading}>
           Send
         </Button>
       </form>

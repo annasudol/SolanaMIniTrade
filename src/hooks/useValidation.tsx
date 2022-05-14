@@ -41,7 +41,7 @@ export const useValidation = (balance: number) => {
         await connection.confirmTransaction(signature, "confirmed");
         notify({
           type: "success",
-          message: "Transaction is successful!",
+          message: "Transaction has been successful!",
           txid: signature,
         });
         setLoading(false);
@@ -70,8 +70,9 @@ export const useValidation = (balance: number) => {
       amount: "",
     },
     validationSchema,
-    onSubmit: () => {
-      return handleSend(formik.values.address, formik.values.amount);
+    onSubmit: (values, {resetForm}) => {
+    handleSend(values.address, values.amount as unknown as number);
+    return resetForm();
     },
   });
 
@@ -80,14 +81,14 @@ export const useValidation = (balance: number) => {
       address: {
         error:
           (formik.touched.address && formik.errors.address) ||
-          (!validateSolAddress(formik.values.address) &&
+          (formik.touched.address && !validateSolAddress(formik.values.address) &&
             "Not valid solana address"),
       },
       amount: {
         error:
           (formik.touched.amount && formik.errors.amount) ||
-          (formik.values.amount > balance &&
-            "Value is higher than your balane"),
+          (formik.values.amount as unknown as number > balance &&
+            "Value is higher than your balance"),
       },
     }),
     [formik.touched, formik.errors]
