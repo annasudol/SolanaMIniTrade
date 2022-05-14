@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useAutoConnect } from "~/contexts/AutoConnectProvider";
 import { getExplorerUrl } from "../utils/explorer";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 interface TransactionLinkProps {
   txid: string;
